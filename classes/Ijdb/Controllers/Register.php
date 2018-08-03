@@ -8,7 +8,7 @@ class Register {
 	public function __construct(DatabaseTable $authorsTable) {
 		$this->authorsTable = $authorsTable;
 	}
-
+	
 	public function registrationForm() {
 		return ['template' => 'register.html.php', 
 				'title' => 'Register an account'];
@@ -19,7 +19,22 @@ class Register {
 		return ['template' => 'registersuccess.html.php', 
 			    'title' => 'Registration Successful'];
 	}
-
+	function ContainsNumbers($password){
+		if (preg_match('/[0-9]/', $String)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	function min8($password){
+		if (strlen($password)>=8){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	public function registerUser() {
 		$author = $_POST['author'];
 
@@ -41,6 +56,7 @@ class Register {
 			$valid = false;
 			$errors[] = 'Invalid email address';
 		}
+
 		else { //if the email is not blank and valid:
 			//convert the email to lowercase
 			$author['email'] = strtolower($author['email']);
@@ -57,11 +73,15 @@ class Register {
 			$valid = false;
 			$errors[] = 'Password cannot be blank';
 		}
+		if(!ContainsNumbers($author['password']) && (!min8($author['password']))){
+			$valid = false;
+			$erros = 'Your password must be at least 8 characters long and have at least one numerical character';
+		}
 
 		//If $valid is still true, no fields were blank and the data can be added
 		if ($valid == true) {
 			//Hash the password before saving it in the database
-			$author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
+			$author['password'] = password_hash($author['password'], PASSWORD_ARGON2I);
 
 			//When submitted, the $author variable now contains a lowercase value for email
 			//and a hashed password
