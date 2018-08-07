@@ -8,7 +8,11 @@ class Register {
 	public function __construct(DatabaseTable $authorsTable) {
 		$this->authorsTable = $authorsTable;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> Almost
 	public function registrationForm() {
 		return ['template' => 'register.html.php', 
 				'title' => 'Register an account'];
@@ -19,6 +23,7 @@ class Register {
 		return ['template' => 'registersuccess.html.php', 
 			    'title' => 'Registration Successful'];
 	}
+<<<<<<< HEAD
 	function ContainsNumbers($password){
 		if (preg_match('/[0-9]/', $String)){
 			return true;
@@ -35,6 +40,9 @@ class Register {
 			return false;
 		}
 	}
+=======
+
+>>>>>>> Almost
 	public function registerUser() {
 		$author = $_POST['author'];
 
@@ -56,7 +64,10 @@ class Register {
 			$valid = false;
 			$errors[] = 'Invalid email address';
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> Almost
 		else { //if the email is not blank and valid:
 			//convert the email to lowercase
 			$author['email'] = strtolower($author['email']);
@@ -73,6 +84,7 @@ class Register {
 			$valid = false;
 			$errors[] = 'Password cannot be blank';
 		}
+<<<<<<< HEAD
 		if(!ContainsNumbers($author['password']) && (!min8($author['password']))){
 			$valid = false;
 			$erros = 'Your password must be at least 8 characters long and have at least one numerical character';
@@ -82,6 +94,20 @@ class Register {
 		if ($valid == true) {
 			//Hash the password before saving it in the database
 			$author['password'] = password_hash($author['password'], PASSWORD_ARGON2I);
+=======
+			if (!preg_match('/[0-9]/', $author['password'])){
+			    $valid = false;
+			    $errors[] = 'Your password must have at least one numerical character';
+	}
+		if(strlen($author['password']) < 8){
+		    $valid = false;
+		    $errors[] = 'Your password must be at least 8 characters long.' . ' It has: ' . strlen($author['password']). ' characters';
+	}
+		//If $valid is still true, no fields were blank and the data can be added
+		if ($valid == true) {
+			//Hash the password before saving it in the database
+			$author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
+>>>>>>> Almost
 
 			//When submitted, the $author variable now contains a lowercase value for email
 			//and a hashed password
@@ -100,4 +126,43 @@ class Register {
 				   ]; 
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	public function list() {
+		$authors = $this->authorsTable->findAll();
+
+		return ['template' => 'authorlist.html.php',
+				'title' => 'Author List',
+				'variables' => [
+						'authors' => $authors
+					]
+				];
+	}
+
+	public function permissions() {
+
+		$author = $this->authorsTable->findById($_GET['id']);
+
+		$reflected = new \ReflectionClass('\Ijdb\Entity\Author');
+		$constants = $reflected->getConstants();
+
+		return ['template' => 'permissions.html.php',
+				'title' => 'Edit Permissions',
+				'variables' => [
+						'author' => $author,
+						'permissions' => $constants
+					]
+				];	
+	}
+	public function savePermissions(){
+		$author = [
+			'id' => $_GET['id'],
+			'permissions' => array_sum($_POST['permissions'] ?? [])
+		];
+		$this->authorsTable->save($author);
+
+		header('location: /author/list');
+	}
+>>>>>>> Almost
 }
