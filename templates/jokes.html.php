@@ -13,7 +13,7 @@
                     'UTF-8'); ?></a> on 
 <?php
 $date = new DateTime($joke['jokedate']);
-=======
+
 <div class="jokelist">
 
 <ul class="categories">

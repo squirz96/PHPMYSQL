@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php if ($userId == $joke['authorId']): ?>
 <form action="" method="post">
 <input type="hidden" name="joke[id]"
@@ -36,6 +35,4 @@ cols="40"><?=$joke['joketext'] ?? ''?>
 <?php else: ?>
 
 <p>You may only edit jokes that you posted.</p>
-
->>>>>>> Almost
 <?php endif; ?>

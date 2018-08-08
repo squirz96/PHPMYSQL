@@ -11,9 +11,9 @@ class IjdbRoutes implements \Ninja\Routes {
 	public function __construct() {
 		include __DIR__ . '/../../includes/DatabaseConnection.php';
 
-		$this->jokesTable = new \Ninja\DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorsTable, &$this->jokeCategoriesTable]);
- 		$this->authorsTable = new \Ninja\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokesTable]);
- 		$this->categoriesTable = new \Ninja\DatabaseTable($pdo, 'category', 'id', '\Ijdb\Entity\Category', [&$this->jokesTable, &$this->jokeCategoriesTable]);
+		$this->jokesTable = new \Ninja\DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [$this->authorsTable, $this->jokeCategoriesTable]);
+ 		$this->authorsTable = new \Ninja\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [$this->jokesTable]);
+ 		$this->categoriesTable = new \Ninja\DatabaseTable($pdo, 'category', 'id', '\Ijdb\Entity\Category', [$this->jokesTable, $this->jokeCategoriesTable]);
  		$this->jokeCategoriesTable = new \Ninja\DatabaseTable($pdo, 'joke_category', 'categoryId');
 		$this->authentication = new \Ninja\Authentication($this->authorsTable, 'email', 'password');
 	}
@@ -41,8 +41,7 @@ class IjdbRoutes implements \Ninja\Routes {
 					'action' => 'success'
 				]
 			],
-<<<<<<< HEAD
-=======
+
 			'author/permissions' => [
 				'GET' => [
 					'controller' => $authorController,
@@ -63,7 +62,6 @@ class IjdbRoutes implements \Ninja\Routes {
 				'login' => true,
 				'permissions' => \Ijdb\Entity\Author::EDIT_USER_ACCESS
 			],
->>>>>>> Almost
 			'joke/edit' => [
 				'POST' => [
 					'controller' => $jokeController,

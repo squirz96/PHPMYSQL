@@ -19,10 +19,8 @@
 			<?php else: ?>
 			<li><a href="/login">Log in</a></li>
 			<?php endif; ?>
-<<<<<<< HEAD
-=======
+
 			<li><a href="/author/register">Register</a></li>
->>>>>>> Almost
 		</ul>
 	</nav>
 
@@ -31,7 +29,7 @@
 	</main>
 
 	<footer>
-	&copy; IJDB 2017
+	&copy; IJDB 2018
 	</footer>
 	</body>
 </html>

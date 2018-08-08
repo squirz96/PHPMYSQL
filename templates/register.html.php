@@ -8,7 +8,6 @@
 		</ul>
 	</div>
 <?php endif; ?>
-<<<<<<< HEAD
 <form action="" method="post">
     <label for="email">Your email address</label>
     <input name="author[email]" id="email" type="text" value="<?=$author['email'] ?? ''?>">
@@ -21,7 +20,6 @@
  
     <input type="submit" name="submit" value="Register account">
 </form>
-=======
 <style> 
 div.pair{
     float:left;
@@ -46,4 +44,3 @@ div.pair{
 
 
 
->>>>>>> Almost
